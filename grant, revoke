@@ -1,0 +1,75 @@
+mysql> use sse3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_sse3 |
++----------------+
+| courses        |
+| dept           |
+| marks_view     |
+| per            |
+| series         |
+| stud1          |
+| students       |
+| studinfo       |
+| studinfo1      |
++----------------+
+9 rows in set (0.00 sec)
+
+mysql> create user emily;
+ERROR 1396 (HY000): Operation CREATE USER failed for 'emily'@'%'
+mysql> create user gaby;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant all on studinfo to gaby;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for gaby;
++---------------------------------------------------------+
+| Grants for gaby@%                                       |
++---------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'gaby'@'%'                        |
+| GRANT ALL PRIVILEGES ON `sse3`.`studinfo` TO 'gaby'@'%' |
++---------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke all on studinfo from gaby;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for gaby;
++----------------------------------+
+| Grants for gaby@%                |
++----------------------------------+
+| GRANT USAGE ON *.* TO 'gaby'@'%' |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant select,update o persons to gaby;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'o persons to gaby' at line 1
+mysql> grant select,update on persons to gaby;
+ERROR 1146 (42S02): Table 'sse3.persons' doesn't exist
+mysql> grant select,update on studname to gaby;
+ERROR 1146 (42S02): Table 'sse3.studname' doesn't exist
+mysql> grant select,update on courses to gaby;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for gaby;
++--------------------------------------------------------+
+| Grants for gaby@%                                      |
++--------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'gaby'@'%'                       |
+| GRANT SELECT, UPDATE ON `sse3`.`courses` TO 'gaby'@'%' |
++--------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke update on courses from gaby;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for gaby;
++------------------------------------------------+
+| Grants for gaby@%                              |
++------------------------------------------------+
+| GRANT USAGE ON *.* TO 'gaby'@'%'               |
+| GRANT SELECT ON `sse3`.`courses` TO 'gaby'@'%' |
++------------------------------------------------+
+2 rows in set (0.00 sec)
