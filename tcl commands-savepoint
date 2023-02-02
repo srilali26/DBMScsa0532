@@ -1,0 +1,120 @@
+mysql> use sse3;
+Database changed
+mysql> create table series(sno int(5),sername varchar(10),type varchar(15));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> inserrt into series values(1,"hometown","comedy");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inserrt into series values(1,"hometown","comedy")' at line 1
+mysql> insert into series values(1,"hometown","comedy");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into series values(2,"witches","supernatural");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into series values(3,"wednesday","supernatural");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into series values(4,"sand","horror");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from series;
++------+-----------+--------------+
+| sno  | sername   | type         |
++------+-----------+--------------+
+|    1 | hometown  | comedy       |
+|    2 | witches   | supernatural |
+|    3 | wednesday | supernatural |
+|    4 | sand      | horror       |
++------+-----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into series values(5,"fire","history");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*fromseries;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fromseries' at line 1
+mysql> select*from series;
++------+-----------+--------------+
+| sno  | sername   | type         |
++------+-----------+--------------+
+|    1 | hometown  | comedy       |
+|    2 | witches   | supernatural |
+|    3 | wednesday | supernatural |
+|    4 | sand      | horror       |
+|    5 | fire      | history      |
++------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> savepoint ins;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update series set sername="startup" where sno='4';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from series;
++------+-----------+--------------+
+| sno  | sername   | type         |
++------+-----------+--------------+
+|    1 | hometown  | comedy       |
+|    2 | witches   | supernatural |
+|    3 | wednesday | supernatural |
+|    4 | startup   | horror       |
+|    5 | fire      | history      |
++------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> savepoint upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from series where sno=5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from series;
++------+-----------+--------------+
+| sno  | sername   | type         |
++------+-----------+--------------+
+|    1 | hometown  | comedy       |
+|    2 | witches   | supernatural |
+|    3 | wednesday | supernatural |
+|    4 | startup   | horror       |
++------+-----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> savepoint del;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to upd;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from series;
++------+-----------+--------------+
+| sno  | sername   | type         |
++------+-----------+--------------+
+|    1 | hometown  | comedy       |
+|    2 | witches   | supernatural |
+|    3 | wednesday | supernatural |
+|    4 | startup   | horror       |
+|    5 | fire      | history      |
++------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> rollback to ini;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from series;
++------+-----------+--------------+
+| sno  | sername   | type         |
++------+-----------+--------------+
+|    1 | hometown  | comedy       |
+|    2 | witches   | supernatural |
+|    3 | wednesday | supernatural |
+|    4 | sand      | horror       |
++------+-----------+--------------+
+4 rows in set (0.00 sec)
