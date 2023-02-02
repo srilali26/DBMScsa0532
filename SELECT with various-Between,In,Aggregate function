@@ -1,0 +1,77 @@
+mysql> create table studinfo(name varchar(20),rollno int(10),marks int(20),cno int(10));
+ERROR 1046 (3D000): No database selected
+mysql> use sse3;
+Database changed
+mysql> create table studinfo(name varchar(20),rollno int(10),marks int(20),cno int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into studinfo values("locke",35,200,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into studinfo values("ginny",25,248,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into studinfo values("georgia",27,290,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into studinfo values("emily",36,198,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from studinfo where marks BETWEEN 200 and 300;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| locke   |     35 |   200 |    5 |
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
++---------+--------+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> select*from studinfo where name IN('locke');
++-------+--------+-------+------+
+| name  | rollno | marks | cno  |
++-------+--------+-------+------+
+| locke |     35 |   200 |    5 |
++-------+--------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from studinfo where cno='5';
++------------+
+| sum(marks) |
++------------+
+|        936 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select avg(marks) as Average from studinfo;
++----------+
+| Average  |
++----------+
+| 234.0000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) as Maximum from studinfo;
++---------+
+| Maximum |
++---------+
+|     290 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) as Minimum from studinfo;
++---------+
+| Minimum |
++---------+
+|     198 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select*from studinfo where marks NOT BETWEEN 100 and 200;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
++---------+--------+-------+------+
+2 rows in set (0.00 sec)
