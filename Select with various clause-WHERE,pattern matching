@@ -1,0 +1,85 @@
+mysql> use sse3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_sse3 |
++----------------+
+| courses        |
+| students       |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc students;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| studname | varchar(20) | YES  |     | NULL    |       |
+| studid   | int(10)     | YES  |     | NULL    |       |
+| rollno   | int(15)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc courses;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Cname  | varchar(20) | YES  |     | NULL    |       |
+| Cno    | int(10)     | NO   | PRI | 0       |       |
+| Dept   | varchar(20) | YES  |     | NULL    |       |
+| rollno | int(20)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select*from students;
++----------+--------+--------+
+| studname | studid | rollno |
++----------+--------+--------+
+| nisha    |   3339 |     10 |
+| sam      |   3325 |     18 |
+| lucy     |   2263 |     19 |
++----------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select*from courses;
++-------+-----+------+--------+
+| Cname | Cno | Dept | rollno |
++-------+-----+------+--------+
+| NULL  |   0 | NULL |     12 |
+| dbms  | 532 | csc  |   NULL |
+| c++   | 536 | csc  |   NULL |
+| java  | 538 | csc  |   NULL |
++-------+-----+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select*from students where studname="sam";
++----------+--------+--------+
+| studname | studid | rollno |
++----------+--------+--------+
+| sam      |   3325 |     18 |
++----------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select*from courses where cname="java";
++-------+-----+------+--------+
+| Cname | Cno | Dept | rollno |
++-------+-----+------+--------+
+| java  | 538 | csc  |   NULL |
++-------+-----+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select*from students where studname like 'n%';
++----------+--------+--------+
+| studname | studid | rollno |
++----------+--------+--------+
+| nisha    |   3339 |     10 |
++----------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select*from students where studname like '%a%';
++----------+--------+--------+
+| studname | studid | rollno |
++----------+--------+--------+
+| nisha    |   3339 |     10 |
+| sam      |   3325 |     18 |
++----------+--------+--------+
+2 rows in set (0.00 sec)
