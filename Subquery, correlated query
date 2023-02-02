@@ -1,0 +1,47 @@
+mysql> select*from studinfo;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| locke   |     35 |   200 |    5 |
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
+| emily   |     36 |   198 |    5 |
++---------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select name,rollno from studinfo where name IN(select name from studinfo where marks='200');
++-------+--------+
+| name  | rollno |
++-------+--------+
+| locke |     35 |
++-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select*from studinfo;
++---------+--------+-------+------+---------+
+| name    | rollno | marks | cno  | regno   |
++---------+--------+-------+------+---------+
+| locke   |     35 |   200 |    5 | 1029737 |
+| ginny   |     25 |   248 |    5 | 1892083 |
+| georgia |     27 |   290 |    5 | 1829836 |
+| emily   |     36 |   198 |    5 | 1902637 |
++---------+--------+-------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table studinfo1(id int(10),name varchar(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into studinfo1(id,name)
+    -> select regno,name
+    -> from studinfo where marks>200;
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from studinfo1;
++---------+---------+
+| id      | name    |
++---------+---------+
+| 1892083 | ginny   |
+| 1829836 | georgia |
++---------+---------+
+2 rows in set (0.00 sec)
