@@ -1,0 +1,142 @@
+mysql> use sse3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_sse3 |
++----------------+
+| courses        |
+| dept           |
+| stud1          |
+| students       |
+| studinfo       |
+| studinfo1      |
++----------------+
+6 rows in set (0.00 sec)
+
+mysql> select*from studinfo;
++---------+--------+-------+------+---------+
+| name    | rollno | marks | cno  | regno   |
++---------+--------+-------+------+---------+
+| locke   |     35 |   200 |    5 | 1029737 |
+| ginny   |     25 |   248 |    5 | 1892083 |
+| georgia |     27 |   290 |    5 | 1829836 |
+| emily   |     36 |   198 |    5 | 1902637 |
++---------+--------+-------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create view marks_view as select name,marks from studinfo;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select*from marks_view;
++---------+-------+
+| name    | marks |
++---------+-------+
+| locke   |   200 |
+| ginny   |   248 |
+| georgia |   290 |
+| emily   |   198 |
++---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create index name on studinfo(name);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from studinfo;
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table    | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| studinfo |          1 | name     |            1 | name        | A         |           4 |     NULL | NULL   | YES  | BTREE      |         |               |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> create table per(pid int NOT NULL AUTO_INCREMENT,name varchar(50),age int(3),PRIMARY KEY(pid));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc per;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| pid   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | YES  |     | NULL    |                |
+| age   | int(3)      | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> alter table per AUTO_INCREMENT=50;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into per(name,age) values("sam",19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from per;
++-----+------+------+
+| pid | name | age  |
++-----+------+------+
+|  50 | sam  |   19 |
++-----+------+------+
+1 row in set (0.00 sec)
+
+mysql> use sse3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_sse3 |
++----------------+
+| courses        |
+| dept           |
+| marks_view     |
+| per            |
+| stud1          |
+| students       |
+| studinfo       |
+| studinfo1      |
++----------------+
+8 rows in set (0.00 sec)
+
+mysql> select*from studinfo;
++---------+--------+-------+------+---------+
+| name    | rollno | marks | cno  | regno   |
++---------+--------+-------+------+---------+
+| locke   |     35 |   200 |    5 | 1029737 |
+| ginny   |     25 |   248 |    5 | 1892083 |
+| georgia |     27 |   290 |    5 | 1829836 |
+| emily   |     36 |   198 |    5 | 1902637 |
++---------+--------+-------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select name,marks,CASE WHEN marks>=280 THEN 'Excellent'WHEN marks>=240 THEN 'Good'ELSE 'Average'END as performance from studinfo;
++---------+-------+-------------+
+| name    | marks | performance |
++---------+-------+-------------+
+| locke   |   200 | Average     |
+| ginny   |   248 | Good        |
+| georgia |   290 | Excellent   |
+| emily   |   198 | Average     |
++---------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> DELIMITER $$;
+mysql> CREATE FUNCTION REPEAT_DEMO(INC INT)
+    -> RETURNS CHAR(40)
+    -> DETERMINISTIC
+    -> BEGIN
+    -> DECLARE INCOME INT;
+    -> SET INCOME=0;
+    -> REPEAT
+    -> SET INCOME=INCOME+INC;
+    -> UNTIL INCOMES>4000
+    -> END REPEAT;
+    -> RETURN "INCOME>4000 DETECTED"
+    -> END;
+    -> $$
+    Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT REPEAT_DEMO(4000);$$
++----------------------+
+| REPEAT_DEMO(4000)    |
++----------------------+
+| INCOME>4000 DETECTED |
++----------------------+
+1 row in set (0.01 sec)
