@@ -1,0 +1,51 @@
+mysql> select*from studinfo;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| locke   |     35 |   200 |    5 |
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
+| emily   |     36 |   198 |    5 |
++---------+--------+-------+------+
+4 rows in set (0.00 sec)
+mysql> select*from studinfo order by name;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| emily   |     36 |   198 |    5 |
+| georgia |     27 |   290 |    5 |
+| ginny   |     25 |   248 |    5 |
+| locke   |     35 |   200 |    5 |
++---------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select*from studinfo group by marks;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| emily   |     36 |   198 |    5 |
+| locke   |     35 |   200 |    5 |
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
++---------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select*from studinfo having marks>200;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
++---------+--------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select*from studinfo;
++---------+--------+-------+------+
+| name    | rollno | marks | cno  |
++---------+--------+-------+------+
+| locke   |     35 |   200 |    5 |
+| ginny   |     25 |   248 |    5 |
+| georgia |     27 |   290 |    5 |
+| emily   |     36 |   198 |    5 |
++---------+--------+-------+------+
+4 rows in set (0.00 sec)
