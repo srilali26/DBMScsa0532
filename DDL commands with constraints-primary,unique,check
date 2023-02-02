@@ -1,0 +1,159 @@
+ use sse3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_sse3 |
++----------------+
+| courses        |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> desc courses;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Cname | varchar(20) | YES  |     | NULL    |       |
+| Cno   | int(10)     | YES  |     | NULL    |       |
+| Dept  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table courses add primary key(cno);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> create table students(studname varchar(20),studid int(10),rollno(15));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(15))' at line 1
+mysql> create table students(studname varchar(20),studid int(10),rollno int(15));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into students values("nisha",3339,10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values("sam",3325,18);
+ERROR 1146 (42S02): Table 'sse3.student' doesn't exist
+mysql> insert into students values("sam",3325,18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into students values("lucy",2263,19);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> alter table students add foreign key(rollno) references courses (cno);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`sse3`.`#sql-17cc_b`, CONSTRAINT `#sql-17cc_b_ibfk_1` FOREIGN KEY (`rollno`) REFERENCES `courses` (`Cno`))
+mysql> alter table courses add rollno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter courses add rollno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'courses add rollno' at line 1
+mysql> alter table courses add rollno int(20);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table students add foreign key(rollno) references courses(rollno);
+ERROR 1005 (HY000): Can't create table 'sse3.#sql-17cc_b' (errno: 150)
+mysql> insert into courses(rollno) value(12);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into courses(rollno) values(13);
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+mysql> insert into courses(rollno) value(12);
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+mysql> insert into courses(rollno) value(13);
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+mysql> alter table students add foreign key(rollno) refernces courses(rollno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refernces courses(rollno)' at line 1
+mysql>
+mysql> alter table courses add unique((cno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(cno))' at line 1
+mysql> alter table courses add unique(cno);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc courses;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Cname  | varchar(20) | YES  |     | NULL    |       |
+| Cno    | int(10)     | NO   | PRI | 0       |       |
+| Dept   | varchar(20) | YES  |     | NULL    |       |
+| rollno | int(20)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'sse3.student' doesn't exist
+mysql> desc students;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| studname | varchar(20) | YES  |     | NULL    |       |
+| studid   | int(10)     | YES  |     | NULL    |       |
+| rollno   | int(15)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> mysql> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> show databases' at line 1
+mysql> +--------------------+
+    -> | Database           |
+    -> +--------------------+
+    -> | information_schema |
+    -> | mysql              |
+    -> | performance_schema |
+    -> | sse2               |
+    -> | sse3               |
+    -> | test               |
+    -> +--------------------+
+    -> 6 rows in set (0.01 sec)
+    ->
+    -> mysql> use sse3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '+--------------------+
+| Database           |
++--------------------+
+| informati' at line 1
+mysql> Database changed
+    -> mysql> desc sse3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Database changed
+mysql> desc sse3' at line 1
+mysql> ERROR 1146 (42S02): Table 'sse3.sse3' doesn't exist
+    '> mysql> show tables;
+    '> Empty set (0.00 sec)
+    '>
+    '> mysql> create table courses(Cname varchar(20),Cno int(10),Dept varchar(20));
+    '> Query OK, 0 rows affected (0.01 sec)
+    '>
+    '> mysql> insert into courses values("dbms",0532,"csc");
+    '> Query OK, 1 row affected (0.01 sec)
+    '>
+    '> mysql> insert into courses values("java",0538,"csc");
+    '> Query OK, 1 row affected (0.00 sec)
+    '>
+    '> mysql> insert into courses values("c++",0536,"csc");
+    '> Query OK, 1 row affected (0.00 sec)
+    '>
+    '> mysql> select*from courses;
+    '> +-------+------+------+
+    '> | Cname | Cno  | Dept |
+    '> +-------+------+------+
+    '> | dbms  |  532 | csc  |
+    '> | java  |  538 | csc  |
+    '> | c++   |  536 | csc  |
+    '> +-------+------+------+
+    '> 3 rows in set (0.00 sec)
+    '>
+    '> mysql> select cname from courses;
+    '> +-------+
+    '> | cname |
+    '> +-------+
+    '> | dbms  |
+    '> | java  |
+    '> | c++   |
+    '> +-------+
+    '> 3 rows in set (0.00 sec)
+    '>
+    '> mysql> select*from courses where cname="dbms";
+    '> +-------+------+------+
+    '> | Cname | Cno  | Dept |
+    '> +-------+------+------+
+    '> | dbms  |  532 | csc  |
+    '> +-------+------+------+
+    '> 1 row in set (0.00 sec)
