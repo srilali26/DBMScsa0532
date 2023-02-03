@@ -1,0 +1,72 @@
+mysql> use sse3;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_sse3 |
++----------------+
+| courses        |
+| dept           |
+| marks_view     |
+| per            |
+| series         |
+| stud1          |
+| students       |
+| studinfo       |
+| studinfo1      |
++----------------+
+9 rows in set (0.00 sec)
+
+mysql> select*from studinfo;
++---------+--------+-------+------+---------+
+| name    | rollno | marks | cno  | regno   |
++---------+--------+-------+------+---------+
+| locke   |     35 |   200 |    5 | 1029737 |
+| ginny   |     25 |   248 |    5 | 1892083 |
+| georgia |     27 |   290 |    5 | 1829836 |
+| emily   |     36 |   198 |    5 | 1902637 |
++---------+--------+-------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE studinfo_info()
+    -> BEGIN
+    -> select*from studinfo;
+    -> END; //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CALL studinfo_info();
+    -> //
++---------+--------+-------+------+---------+
+| name    | rollno | marks | cno  | regno   |
++---------+--------+-------+------+---------+
+| locke   |     35 |   200 |    5 | 1029737 |
+| ginny   |     25 |   248 |    5 | 1892083 |
+| georgia |     27 |   290 |    5 | 1829836 |
+| emily   |     36 |   198 |    5 | 1902637 |
++---------+--------+-------+------+---------+
+4 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE PROCEDURE while_loop()
+    -> BEGIN
+    -> DECLARE num INT default 1;
+    -> DECLARE res Varchar(50) default '';
+    -> WHILE num < 78125 DO
+    -> SET res = CONCAT(res,num,',');
+    -> SET num = num*5;
+    -> END while;
+    -> SELECT res;
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call while_loop()
+    -> //
++----------------------------+
+| res                        |
++----------------------------+
+| 1,5,25,125,625,3125,15625, |
++----------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
